@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import { FaDollarSign } from "react-icons/fa";
 import { useScore } from "../App";
+import { useEffect } from "react";
 
 // Triggers a dollar that falls from the top of the screen
 // Is used whenever the user clicks the screen to earn money
@@ -25,9 +26,13 @@ const FallingDollar = () => {
 function ClickerGame() {
   const { score, setScore } = useScore();
   const [scoreAmount, setScoreAmount] = useState(1);
-  const [upgradeCost, setUpgradeCost] = useState(10);
   const [showDollar, setShowDollar] = useState(false);
+  const [upgradeCost, setUpgradeCost] = useState(() => {
+    const savedUpgradeCost = localStorage.getItem("upgradeCost");
+    return savedUpgradeCost !== null ? Number(savedUpgradeCost) : 10;
+  });
 
+  // text variables
   const upgradeCostText = "kjøp for " + upgradeCost + ",- kr";
 
   // triggers the dollar animation
@@ -35,6 +40,25 @@ function ClickerGame() {
     setShowDollar(true);
     setTimeout(() => setShowDollar(false), 2000);
   };
+
+  // Stores the upgradeCost in localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("upgradeCost", String(upgradeCost));
+  }, [upgradeCost]);
+
+  // Stores the upgradeCost in localStorage when the user leaves the page
+  useEffect(() => {
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("upgradeCost", String(upgradeCost));
+    });
+
+    // Cleanup the event listener
+    return () => {
+      window.removeEventListener("beforeunload", () => {
+        localStorage.setItem("upgradeCost", String(upgradeCost));
+      });
+    };
+  }, [upgradeCost]);
 
   return (
     <>
@@ -46,8 +70,10 @@ function ClickerGame() {
         }}
       >
         <P>Klikk for å tjene penger!</P>
-        <Space top="10rem" />
-        <H2>Oppgradderinger</H2>
+
+        <p className="bigIcon">💰</p>
+
+        <H2>Oppgraderinger</H2>
         <p>Få en til krone for hvert klikk!</p>
       </div>
       <div className="center">
@@ -57,7 +83,7 @@ function ClickerGame() {
             if (score >= upgradeCost) {
               setScore((score) => score - upgradeCost);
               setScoreAmount((scoreAmount) => scoreAmount + 1);
-              setUpgradeCost((upgradeCost) => Math.floor(upgradeCost * 1.5));
+              setUpgradeCost((upgradeCost) => Math.floor(upgradeCost * 1.2));
             }
           }}
         />

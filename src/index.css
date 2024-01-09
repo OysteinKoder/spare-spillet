@@ -23,3 +23,33 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.bigIcon {
+  font-size: 5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  cursor: pointer;
+}
+
+.bigIcon:active {
+  animation: clickScale 0.2s ease-in-out;
+}
+
+.textContainer {
+  width: 18rem;
+  margin: auto;
+}
+
+/* Animations */
+
+@keyframes clickScale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
