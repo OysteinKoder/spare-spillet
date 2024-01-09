@@ -45,7 +45,6 @@ function ClickerGame() {
           triggerAnimation();
         }}
       >
-        <P size="large">kr: {score} ,- </P>
         <P>Klikk for å tjene penger!</P>
         <Space top="10rem" />
         <H2>Oppgradderinger</H2>

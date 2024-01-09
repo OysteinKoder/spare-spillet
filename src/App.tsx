@@ -1,5 +1,5 @@
 import { createContext, useState, useContext } from "react";
-import { H1, Tabs } from "@dnb/eufemia";
+import { H1, Tabs, P } from "@dnb/eufemia";
 import ClickerGame from "./components/clickerGame";
 import InvestGame from "./components/investGame";
 
@@ -19,7 +19,7 @@ function App() {
     <ScoreContext.Provider value={{ score, setScore }}>
       <div className="container">
         <H1>Spare-Spillet</H1>
-
+        <P size="large">kr: {score} ,- </P>
         <Tabs>
           <Tabs.Content title="Klikke-spill">
             <ClickerGame />
