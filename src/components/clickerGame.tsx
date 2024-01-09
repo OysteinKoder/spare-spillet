@@ -2,6 +2,7 @@ import { Button, H2, P, Space } from "@dnb/eufemia";
 import { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import { FaDollarSign } from "react-icons/fa";
+import { useScore } from "../App";
 
 // Triggers a dollar that falls from the top of the screen
 // Is used whenever the user clicks the screen to earn money
@@ -22,7 +23,7 @@ const FallingDollar = () => {
 // Contains the whole clicker game
 
 function ClickerGame() {
-  const [score, setScore] = useState(0);
+  const { score, setScore } = useScore();
   const [scoreAmount, setScoreAmount] = useState(1);
   const [upgradeCost, setUpgradeCost] = useState(10);
   const [showDollar, setShowDollar] = useState(false);
