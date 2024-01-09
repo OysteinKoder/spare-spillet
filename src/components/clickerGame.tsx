@@ -1,4 +1,4 @@
-import { Button, H2, P } from "@dnb/eufemia";
+import { Button, H2, P, Space } from "@dnb/eufemia";
 import { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import { FaDollarSign } from "react-icons/fa";
@@ -25,12 +25,20 @@ const FallingDollar = () => {
 
 function ClickerGame() {
   const { score, setScore } = useScore();
-  const [scoreAmount, setScoreAmount] = useState(1);
   const [showDollar, setShowDollar] = useState(false);
   const [upgradeCost, setUpgradeCost] = useState(() => {
     const savedUpgradeCost = localStorage.getItem("upgradeCost");
     return savedUpgradeCost !== null ? Number(savedUpgradeCost) : 10;
   });
+  const [scoreAmount, setScoreAmount] = useState(() => {
+    const savedScoreAmount = localStorage.getItem("scoreAmount");
+    return savedScoreAmount !== null ? Number(savedScoreAmount) : 1;
+  });
+
+  const resetScore = () => {
+    setScore(1);
+    setUpgradeCost(10);
+  };
 
   // text variables
   const upgradeCostText = "kjøp for " + upgradeCost + ",- kr";
@@ -59,6 +67,22 @@ function ClickerGame() {
       });
     };
   }, [upgradeCost]);
+
+  useEffect(() => {
+    localStorage.setItem("scoreAmount", String(scoreAmount));
+  }, [scoreAmount]);
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("scoreAmount", String(scoreAmount));
+    });
+
+    return () => {
+      window.removeEventListener("beforeunload", () => {
+        localStorage.setItem("scoreAmount", String(scoreAmount));
+      });
+    };
+  }, [scoreAmount]);
 
   return (
     <>
@@ -99,6 +123,8 @@ function ClickerGame() {
           }}
         />
         {showDollar && <FallingDollar />}
+        <Space top="2rem" />
+        <Button text="Reset" onClick={resetScore} />
       </div>
     </>
   );
