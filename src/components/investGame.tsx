@@ -1,5 +1,3 @@
-import { useState } from "react";
-import axios from "axios";
 import { P } from "@dnb/eufemia";
 
 function InvestGame() {

@@ -1,4 +1,4 @@
-import { Button, H2, P, Space } from "@dnb/eufemia";
+import { Button, H2, P } from "@dnb/eufemia";
 import { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import { FaDollarSign } from "react-icons/fa";

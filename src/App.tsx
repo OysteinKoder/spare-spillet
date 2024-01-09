@@ -4,7 +4,12 @@ import ClickerGame from "./components/clickerGame";
 import InvestGame from "./components/investGame";
 import { useEffect } from "react";
 
-const ScoreContext = createContext(0);
+interface ScoreContextType {
+  score: number;
+  setScore: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const ScoreContext = createContext<ScoreContextType | undefined>(undefined);
 
 export function useScore() {
   const context = useContext(ScoreContext);
