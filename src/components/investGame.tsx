@@ -1,6 +1,7 @@
 import { P, Slider, Button, H2, Space, ProgressIndicator } from "@dnb/eufemia";
 import { useState, useEffect } from "react";
 import { companyMapping } from "./investGame/companyMapping";
+import { useScore } from "../App";
 
 // To make the game more fun the prices for the companies are based on crypto prices,
 // Instead of the actual stock prices. This is because the stock prices are too stable.
@@ -8,9 +9,21 @@ import { companyMapping } from "./investGame/companyMapping";
 
 function InvestGame() {
   const [data, setData] = useState([]);
+  const { score, setScore } = useScore();
+  const [share, setShares] = useState(() => {
+    const savedShares = localStorage.getItem("shares");
+    return savedShares !== null ? JSON.parse(savedShares) : {};
+  });
 
-  const handleBuy = () => {
-    console.log("buying");
+  const handleBuy = (company: string, price: number) => {
+    // Update the number of shares for the given company
+    setShares((prevShares: any) => ({
+      ...prevShares,
+      [company]: (prevShares[company] || 0) + 1,
+    }));
+
+    // Subtract the price from the score
+    setScore(score - price);
   };
 
   // if you need to use new properties from the API, you can add them here
@@ -24,6 +37,16 @@ function InvestGame() {
     name: string;
     image: string;
   }
+
+  useEffect(() => {
+    localStorage.setItem("shares", JSON.stringify(share));
+
+    return () => {
+      window.addEventListener("beforeunload", () => {
+        localStorage.setItem("shares", JSON.stringify(share));
+      });
+    };
+  }, [share]);
 
   // Fetches data from the coingecko API
   useEffect(() => {
@@ -69,7 +92,10 @@ function InvestGame() {
               <Space top="1rem" />
               <div className="row">
                 <Slider />
-                <Button text="Kjøp" on_click={handleBuy} />
+                <Button
+                  text="Kjøp"
+                  on_click={() => handleBuy(company.name, coin.current_price)}
+                />
               </div>
             </div>
           );
