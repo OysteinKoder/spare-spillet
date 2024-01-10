@@ -69,7 +69,7 @@ function InvestGame() {
               <Space top="1rem" />
               <div className="row">
                 <Slider />
-                <Button text="Buy" on_click={handleBuy} />
+                <Button text="Kjøp" on_click={handleBuy} />
               </div>
             </div>
           );

@@ -54,7 +54,7 @@ function App() {
           <Space top="large" />
           <P>
             {" "}
-            <em>Bruk pengene fra klikkingen til å invistere </em>
+            <em>Bruk pengene til å investere </em>
           </P>
           <Space bottom="large" />
           <P size="large">kr: {score} ,- </P>
@@ -63,13 +63,14 @@ function App() {
           <Tabs.Content title="Klikk">
             <ClickerGame />
           </Tabs.Content>
-          <Tabs.Content title="Invistere">
+          <Tabs.Content title="Investere">
             <InvestGame />
           </Tabs.Content>
           <Tabs.Content title="Aksjer">
             <PortfolioTab />
           </Tabs.Content>
         </Tabs>
+        <Space bottom="large" />
       </div>
     </ScoreContext.Provider>
   );
