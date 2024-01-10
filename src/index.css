@@ -14,6 +14,7 @@ body {
   flex-direction: column;
   align-items: center;
   overflow: auto;
+  box-shadow: 2px 4px 8px #007272;
 }
 
 .padding {
