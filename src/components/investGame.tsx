@@ -3,18 +3,22 @@ import { useState, useEffect } from "react";
 
 function InvestGame() {
   const [data, setData] = useState([]);
-  useEffect(() => {
-    fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=nok")
-      .then((response) => response.json())
-      .then((data) => setData(data))
-      .catch((error) => console.error("Error:", error));
-  }, []);
+  const [sliderValue, setSliderValue] = useState(0);
 
   const handleBuy = () => {
     console.log("buying");
   };
 
-  const companyMapping = {
+  interface Company {
+    name: string;
+    logo: string;
+  }
+
+  interface CompanyMapping {
+    [key: string]: Company;
+  }
+
+  const companyMapping: CompanyMapping = {
     bitcoin: {
       name: "Microsoft",
       logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
@@ -37,6 +41,22 @@ function InvestGame() {
     },
     // Add more mappings here
   };
+  interface Coin {
+    current_price: number;
+    price_change_24h: number;
+    price_change_percentage_24h: number;
+    id: string;
+    name: string;
+    image: string;
+    // include any other properties that a coin object might have
+  }
+
+  useEffect(() => {
+    fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=nok")
+      .then((response) => response.json())
+      .then((data) => setData(data))
+      .catch((error) => console.error("Error:", error));
+  }, []);
 
   if (data) {
     console.log(data);
@@ -48,7 +68,7 @@ function InvestGame() {
           {" "}
           <em>Selve kjøp selg funksjonen kommer snart! </em>
         </P>
-        {data.slice(0, 4).map((coin, index) => {
+        {(data as Coin[]).slice(0, 4).map((coin: Coin, index: number) => {
           let amount = coin.current_price;
           let formattedAmount = amount.toLocaleString("no-NB") + ",- kr";
           let priceChangeColor = coin.price_change_24h < 0 ? "red" : "green";
@@ -68,7 +88,7 @@ function InvestGame() {
               </P>
               <Space top="1rem" />
               <div className="row">
-                <Slider on_change={({ value }) => setSliderValue(value)} />
+                <Slider />
                 <Button text="Buy" on_click={handleBuy} />
               </div>
             </div>
