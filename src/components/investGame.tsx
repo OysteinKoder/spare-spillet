@@ -49,9 +49,13 @@ function InvestGame() {
           let formattedAmount = amount.toLocaleString("no-NB") + ",- kr";
           let priceChangeColor = coin.price_change_24h < 0 ? "red" : "green";
           let company = companyMapping[coin.id];
+          // let backgroundColor = index % 2 === 0 ? "#D2F0E9" : "white"; // Replace 'color1' and 'color2' with your colors
           return (
-            <div key={index} className="coinCard">
-              <h3>{company ? company.name : coin.name}</h3>
+            <div
+              key={index}
+              className="coinCard"
+              // style={{ backgroundColor: backgroundColor }}
+            >
               <img
                 src={company ? company.logo : coin.image}
                 alt={coin.name}

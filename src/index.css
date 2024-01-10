@@ -10,12 +10,15 @@ body {
 .container {
   border: solid darkcyan 3px;
   border-radius: 5px;
-  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 20rem;
   overflow: auto;
+}
+
+.padding {
+  padding: 1rem;
+  text-align: center;
 }
 
 .height {
@@ -36,7 +39,7 @@ body {
 .row {
   display: flex;
   flex-direction: row;
-  row-gap: 1rem;
+  gap: 1rem;
 }
 
 .coinCard {
@@ -44,11 +47,12 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: solid darkcyan 3px;
-  padding: 1rem;
-  margin: 1rem;
-  width: 18rem;
+  width: 100%;
+  border-bottom: dotted darkcyan 3px;
+  padding-bottom: 1rem;
+  padding-top: 2rem;
 }
+
 .coinCardColumn {
   display: flex;
   flex-direction: column;

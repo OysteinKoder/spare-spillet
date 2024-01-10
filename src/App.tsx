@@ -49,15 +49,16 @@ function App() {
   return (
     <ScoreContext.Provider value={{ score, setScore }}>
       <div className="container">
-        <H1>Spare-Spillet</H1>
-        <Space top="large" />
-        <P>
-          {" "}
-          <em>Bruk pengene fra klikkingen til å invistere </em>
-        </P>
-        <Space bottom="large" />
-        <P size="large">kr: {score} ,- </P>
-
+        <div className="padding">
+          <H1>Spare-Spillet</H1>
+          <Space top="large" />
+          <P>
+            {" "}
+            <em>Bruk pengene fra klikkingen til å invistere </em>
+          </P>
+          <Space bottom="large" />
+          <P size="large">kr: {score} ,- </P>
+        </div>
         <Tabs className="tabs">
           <Tabs.Content title="Klikk">
             <ClickerGame />
