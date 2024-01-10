@@ -3,6 +3,7 @@ import { H1, Tabs, P, Space } from "@dnb/eufemia";
 import ClickerGame from "./components/clickerGame";
 import InvestGame from "./components/investGame";
 import { useEffect } from "react";
+import PortfolioTab from "./components/PortfolioTab";
 
 interface ScoreContextType {
   score: number;
@@ -56,12 +57,16 @@ function App() {
         </P>
         <Space bottom="large" />
         <P size="large">kr: {score} ,- </P>
-        <Tabs>
-          <Tabs.Content title="Klikke-spill">
+
+        <Tabs className="tabs">
+          <Tabs.Content title="Klikk">
             <ClickerGame />
           </Tabs.Content>
-          <Tabs.Content title="Invisterings-spill">
+          <Tabs.Content title="Invistere">
             <InvestGame />
+          </Tabs.Content>
+          <Tabs.Content title="Aksjer">
+            <PortfolioTab />
           </Tabs.Content>
         </Tabs>
       </div>

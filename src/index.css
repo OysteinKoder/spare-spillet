@@ -29,6 +29,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  margin: auto;
 }
 
 .row {
@@ -73,6 +75,15 @@ body {
 .textContainer {
   width: 18rem;
   margin: auto;
+}
+
+/* Senters everything in one column  */
+.tabs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 /* Animations */
