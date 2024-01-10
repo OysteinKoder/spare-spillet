@@ -1,45 +1,94 @@
-import { P } from "@dnb/eufemia";
+import { P, Slider, Button, H2, Space } from "@dnb/eufemia";
+import { useState, useEffect } from "react";
 
 function InvestGame() {
-  // const [stocks, setStocks] = useState([]);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=nok")
+      .then((response) => response.json())
+      .then((data) => setData(data))
+      .catch((error) => console.error("Error:", error));
+  }, []);
 
-  // const getInvestment = async (tickers: string[]) => {
-  //   const requests = tickers.map((ticker) => {
-  //     const options = {
-  //       method: "GET",
-  //       url: "https://yh-finance-complete.p.rapidapi.com/yhprice",
-  //       params: { ticker },
-  //       headers: {
-  //         "X-RapidAPI-Key":
-  //           "82b491b7ffmsh97a40947405ae9cp13eca2jsn0ff7cbdfe551",
-  //         "X-RapidAPI-Host": "yh-finance-complete.p.rapidapi.com",
-  //       },
-  //     };
+  const handleBuy = () => {
+    console.log("buying");
+  };
 
-  //     return axios.request(options);
-  //   });
+  const companyMapping = {
+    bitcoin: {
+      name: "Microsoft",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
+    },
+    ethereum: {
+      name: "Apple",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Apple-logo.png",
+    },
+    cardano: {
+      name: "Tesla",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/3/34/Tesla_logo.svg",
+    },
+    tether: {
+      name: "Google",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
+    },
+    binancecoin: {
+      name: "Amazon",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
+    },
+    // Add more mappings here
+  };
 
-  //   try {
-  //     const responses = await Promise.all(requests);
-  //     setStocks(responses.map((response) => response.data) as any[]);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // getInvestment(["dnb"]);
-
-  return (
-    <div>
-      <h1>Aksjer</h1>
-      <P className="textContainer">
-        Her skal det bli mulig å bruke pengene man tjente i klikke-spillet til å
-        kjøpe og selge aksjer.
-        <br /> Porteføljen din lagres i nettleseren og dukker opp igjen neste
-        gang du åpner denne nettsiden
-      </P>
-    </div>
-  );
+  if (data) {
+    console.log(data);
+    return (
+      <div className="height">
+        <H2>Aksjer</H2>
+        <Space top="1rem" />
+        <P>
+          {" "}
+          <em>Selve kjøp selg funksjonen kommer snart! </em>
+        </P>
+        {data.slice(0, 4).map((coin, index) => {
+          let amount = coin.current_price;
+          let formattedAmount = amount.toLocaleString("no-NB") + ",- kr";
+          let priceChangeColor = coin.price_change_24h < 0 ? "red" : "green";
+          let company = companyMapping[coin.id];
+          return (
+            <div key={index} className="coinCard">
+              <h3>{company ? company.name : coin.name}</h3>
+              <img
+                src={company ? company.logo : coin.image}
+                alt={coin.name}
+                className="coinImg"
+              />
+              <Space top="1rem" />
+              <P>Current Price: {formattedAmount}</P>
+              <P style={{ color: priceChangeColor }}>
+                24h: {coin.price_change_percentage_24h.toFixed(2)} %
+              </P>
+              <Space top="1rem" />
+              <div className="row">
+                <Slider on_change={({ value }) => setSliderValue(value)} />
+                <Button text="Buy" on_click={handleBuy} />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <h1>Aksjer</h1>
+        <P className="textContainer">
+          Her skal det bli mulig å bruke pengene man tjente i klikke-spillet til
+          å kjøpe og selge aksjer.
+          <br /> Porteføljen din lagres i nettleseren og dukker opp igjen neste
+          gang du åpner denne nettsiden
+        </P>
+      </div>
+    );
+  }
 }
 
 export default InvestGame;

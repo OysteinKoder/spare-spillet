@@ -38,6 +38,7 @@ function ClickerGame() {
   const resetScore = () => {
     setScore(1);
     setUpgradeCost(10);
+    setScoreAmount(1);
   };
 
   // text variables

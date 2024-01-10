@@ -15,6 +15,13 @@ body {
   flex-direction: column;
   align-items: center;
   min-height: 20rem;
+  overflow: auto;
+}
+
+.height {
+  height: 30rem;
+  overflow: auto;
+  text-align: center;
 }
 
 .center {
@@ -22,6 +29,34 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  row-gap: 1rem;
+}
+
+.coinCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: solid darkcyan 3px;
+  padding: 1rem;
+  margin: 1rem;
+  width: 18rem;
+}
+.coinCardColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.coinImg {
+  height: 5rem;
+  width: 5rem;
 }
 
 .bigIcon {
