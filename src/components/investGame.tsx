@@ -1,46 +1,14 @@
-import { P, Slider, Button, H2, Space } from "@dnb/eufemia";
+import { P, Slider, Button, H2, Space, ProgressIndicator } from "@dnb/eufemia";
 import { useState, useEffect } from "react";
+import { companyMapping } from "./investGame/companyMapping";
 
 function InvestGame() {
   const [data, setData] = useState([]);
-  const [sliderValue, setSliderValue] = useState(0);
 
   const handleBuy = () => {
     console.log("buying");
   };
 
-  interface Company {
-    name: string;
-    logo: string;
-  }
-
-  interface CompanyMapping {
-    [key: string]: Company;
-  }
-
-  const companyMapping: CompanyMapping = {
-    bitcoin: {
-      name: "Microsoft",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
-    },
-    ethereum: {
-      name: "Apple",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Apple-logo.png",
-    },
-    cardano: {
-      name: "Tesla",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/3/34/Tesla_logo.svg",
-    },
-    tether: {
-      name: "Google",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
-    },
-    binancecoin: {
-      name: "Amazon",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
-    },
-    // Add more mappings here
-  };
   interface Coin {
     current_price: number;
     price_change_24h: number;
@@ -55,10 +23,10 @@ function InvestGame() {
     fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=nok")
       .then((response) => response.json())
       .then((data) => setData(data))
-      .catch((error) => console.error("Error:", error));
+      .catch((error) => console.log(error));
   }, []);
 
-  if (data) {
+  if (data[2]) {
     console.log(data);
     return (
       <div className="height">
@@ -100,12 +68,8 @@ function InvestGame() {
     return (
       <div>
         <h1>Aksjer</h1>
-        <P className="textContainer">
-          Her skal det bli mulig å bruke pengene man tjente i klikke-spillet til
-          å kjøpe og selge aksjer.
-          <br /> Porteføljen din lagres i nettleseren og dukker opp igjen neste
-          gang du åpner denne nettsiden
-        </P>
+        <P className="textContainer">Siden lastes inn.</P>
+        <ProgressIndicator />
       </div>
     );
   }
