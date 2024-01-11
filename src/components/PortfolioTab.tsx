@@ -1,4 +1,4 @@
-import { H2, P } from "@dnb/eufemia";
+import { Button, H2, P, Slider, Space } from "@dnb/eufemia";
 import { useState } from "react";
 
 export default function PortfolioTab() {
@@ -14,18 +14,18 @@ export default function PortfolioTab() {
       {Object.keys(share).map((company: string, idx: number) => (
         <div
           key={idx}
-          style={{
-            padding: "20px",
-            margin: "10px",
-            border: "1px solid #ddd",
-            borderRadius: "5px",
-            boxShadow: "0 2px 5px rgba(0, 0, 0, 0.15)",
-            backgroundColor: "#fff",
-          }}
+          className="coinCard"
+          // style={{ backgroundColor: backgroundColor }}
         >
           <P>
-            {company}: {share[company]}
+            {company} Shares: {share[company]}
           </P>
+          <Space top="1rem" />
+          <Space top="1rem" />
+          <div className="row">
+            <Slider />
+            <Button text="Selg" on_click={() => console.log("sold")} />
+          </div>
         </div>
       ))}
     </div>

@@ -17,13 +17,15 @@ function InvestGame() {
 
   const handleBuy = (company: string, price: number) => {
     // Update the number of shares for the given company
-    setShares((prevShares: any) => ({
-      ...prevShares,
-      [company]: (prevShares[company] || 0) + 1,
-    }));
+    if (score > price) {
+      setShares((prevShares: any) => ({
+        ...prevShares,
+        [company]: (prevShares[company] || 0) + 1,
+      }));
 
-    // Subtract the price from the score
-    setScore(score - price);
+      // Subtract the price from the score
+      setScore(score - price);
+    } else alert("Du har ikke nok penger");
   };
 
   // if you need to use new properties from the API, you can add them here
