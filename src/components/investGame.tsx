@@ -65,10 +65,6 @@ function InvestGame() {
       <div className="height">
         <H2>Aksjer</H2>
         <Space top="1rem" />
-        <P>
-          {" "}
-          <em>Selve kjøp selg funksjonen kommer snart! </em>
-        </P>
         {(data as Coin[]).slice(0, 4).map((coin: Coin, index: number) => {
           let amount = coin.current_price;
           let formattedAmount = amount.toLocaleString("no-NB") + ",- kr";
@@ -93,7 +89,7 @@ function InvestGame() {
               </P>
               <Space top="1rem" />
               <div className="row">
-                <Slider />
+                <Slider labelDirection="vertical" label="👷🔧" />
                 <Button
                   text="Kjøp"
                   on_click={() => handleBuy(company.name, coin.current_price)}
