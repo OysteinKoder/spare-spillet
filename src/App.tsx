@@ -1,9 +1,9 @@
-import { createContext, useState, useContext } from "react";
-import { H1, Tabs, P, Space } from "@dnb/eufemia";
 import ClickerGame from "./components/clickerGame";
 import InvestGame from "./components/investGame";
-import { useEffect } from "react";
 import PortfolioTab from "./components/PortfolioTab";
+import { createContext, useState, useContext } from "react";
+import { H1, Tabs, P, Space } from "@dnb/eufemia";
+import { useEffect } from "react";
 
 interface ScoreContextType {
   score: number;
@@ -21,7 +21,6 @@ export function useScore() {
 }
 
 function App() {
-  // const [score, setScore] = useState(0);
   const [score, setScore] = useState(() => {
     // Retrieve the score from localStorage when the component mounts
     const savedScore = localStorage.getItem("score");

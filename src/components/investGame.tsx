@@ -8,19 +8,19 @@ import { useScore } from "../App";
 // This makes the prices fluctuate a lot, and makes the game more interesting
 
 function InvestGame() {
-  const [data, setData] = useState([]);
   const { score, setScore } = useScore();
-  const [share, setShares] = useState(() => {
-    const savedShares = localStorage.getItem("shares");
-    return savedShares !== null ? JSON.parse(savedShares) : {};
+  const [data, setData] = useState([]);
+  const [stocks, setStocks] = useState(() => {
+    const savedStocks = localStorage.getItem("stocks");
+    return savedStocks !== null ? JSON.parse(savedStocks) : {};
   });
 
   const handleBuy = (company: string, price: number) => {
-    // Update the number of shares for the given company
+    // Update the number of Stocks for the given company
     if (score > price) {
-      setShares((prevShares: any) => ({
-        ...prevShares,
-        [company]: (prevShares[company] || 0) + 1,
+      setStocks((prevStocks: any) => ({
+        ...prevStocks,
+        [company]: (prevStocks[company] || 0) + 1,
       }));
 
       // Subtract the price from the score
@@ -41,14 +41,14 @@ function InvestGame() {
   }
 
   useEffect(() => {
-    localStorage.setItem("shares", JSON.stringify(share));
+    localStorage.setItem("stocks", JSON.stringify(stocks));
 
     return () => {
       window.addEventListener("beforeunload", () => {
-        localStorage.setItem("shares", JSON.stringify(share));
+        localStorage.setItem("stocks", JSON.stringify(stocks));
       });
     };
-  }, [share]);
+  }, [stocks]);
 
   // Fetches data from the coingecko API
   useEffect(() => {
